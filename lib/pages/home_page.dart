@@ -12,7 +12,13 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          child: Text('Hello world $days hey'),
+          child: Text.rich(TextSpan(
+              text: 'Hello world $days hey',
+              children: const <TextSpan>[
+                TextSpan(
+                    text: ' Beautiful',
+                    style: TextStyle(fontWeight: FontWeight.bold))
+              ])),
         ),
       ),
       drawer: const Drawer(),
