@@ -1,3 +1,4 @@
+import 'package:first_app/pages/layput.dart';
 import 'package:first_app/pages/login_page.dart';
 import 'package:first_app/router/router.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
       // home: const HomePage(),
       themeMode: ThemeMode.light,
       theme: ThemeData(
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       routes: {
         MainRoute.homeRoute: (contex) => const HomePage(),
         MainRoute.loginRoute: (contex) => const LoginPage(),
+        MainRoute.layoutRoute: (contex) => Layout(),
       },
     );
   }

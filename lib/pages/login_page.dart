@@ -1,9 +1,16 @@
 import 'package:first_app/router/router.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String name = '';
+  bool buttonAnimation = false;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -13,18 +20,20 @@ class LoginPage extends StatelessWidget {
       //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       //   ),
       // ),
+
       color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 50),
             Image.asset(
               'assets/images/login.png',
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 15),
-            const Text(
-              'Welcome',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            Text(
+              'Welcome $name',
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 15),
             Padding(
@@ -35,6 +44,7 @@ class LoginPage extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.w600),
                     decoration: const InputDecoration(
                         hintText: 'asadsanto10', labelText: 'Enter User Name'),
+                    onChanged: (value) => {name = value, setState(() {})},
                   ),
                   TextFormField(
                     style: const TextStyle(fontWeight: FontWeight.w600),
@@ -46,25 +56,55 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, MainRoute.homeRoute);
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  minimumSize: const Size(88, 36),
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 35.0, vertical: 20.0),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(2.0)),
-                  ),
-                ),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ))
+            InkWell(
+              onTap: () async {
+                setState(() {
+                  buttonAnimation = true;
+                });
+                await Future.delayed(const Duration(seconds: 1));
+                // ignore: use_build_context_synchronously
+                Navigator.pushNamed(context, MainRoute.homeRoute);
+              },
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                height: 35,
+                width: buttonAnimation ? 35 : 100,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.deepOrange,
+                    borderRadius:
+                        BorderRadius.circular(buttonAnimation ? 50 : 5)),
+                child: buttonAnimation
+                    ? const Icon(
+                        Icons.done,
+                        color: Colors.white,
+                      )
+                    : const Text(
+                        'Login',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
+                      ),
+              ),
+            )
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, MainRoute.homeRoute);
+            //     },
+            //     style: TextButton.styleFrom(
+            //       foregroundColor: Colors.white,
+            //       minimumSize: const Size(88, 36),
+            //       padding: const EdgeInsets.symmetric(
+            //           horizontal: 35.0, vertical: 20.0),
+            //       shape: const RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.all(Radius.circular(2.0)),
+            //       ),
+            //     ),
+            //     child: const Text(
+            //       'Login',
+            //       style: TextStyle(
+            //         fontWeight: FontWeight.w600,
+            //       ),
+            //     ))
           ],
         ),
       ),
@@ -113,4 +153,3 @@ class LoginPage extends StatelessWidget {
 //     );
 //   }
 // }
-
