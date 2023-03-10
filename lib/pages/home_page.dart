@@ -1,3 +1,4 @@
+import 'package:first_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,8 +9,27 @@ class HomePage extends StatelessWidget {
     int days = 30;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Fisrt App'),
+        title: const Text(
+          'Fisrt App',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true,
       ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      //   iconTheme: IconThemeData(color: Colors.black),
+      //   title: const Text(
+      //     'Fisrt App',
+      //     style: TextStyle(
+      //       color: Colors.black,
+      //       fontWeight: FontWeight.w600,
+      //     ),
+      //   ),
+      // ),
       body: Center(
         child: Container(
           child: Text.rich(TextSpan(
@@ -21,7 +41,7 @@ class HomePage extends StatelessWidget {
               ])),
         ),
       ),
-      drawer: const Drawer(),
+      drawer: const SideDrawer(),
     );
   }
 }
