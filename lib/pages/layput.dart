@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
 
-class Layout extends StatelessWidget {
+class Layout extends StatefulWidget {
+  const Layout({super.key});
+
+  @override
+  State<Layout> createState() => _LayoutState();
+}
+
+class _LayoutState extends State<Layout> {
+  bool _isFavorited = true;
+  int _favoriteCount = 41;
   final imageUrl =
       'https://raw.githubusercontent.com/flutter/website/main/examples/layout/lakes/step5/images/lake.jpg';
+  void _toggleFavorite() {
+    setState(() {
+      if (_isFavorited) {
+        _favoriteCount -= 1;
+        _isFavorited = false;
+      } else {
+        _favoriteCount += 1;
+        _isFavorited = true;
+      }
+    });
+  }
+
   Widget titleSection = Container(
     padding: const EdgeInsets.all(32),
     child: Row(
@@ -37,6 +58,19 @@ class Layout extends StatelessWidget {
           color: Colors.red[500],
         ),
         const Text('41'),
+        IconButton(
+            onPressed: () {
+              // setState(() {
+              //   if (_isFavorited) {
+              //     _favoriteCount -= 1;
+              //     _isFavorited = false;
+              //   } else {
+              //     _favoriteCount += 1;
+              //     _isFavorited = true;
+              //   }
+              // });
+            },
+            icon: const Icon(Icons.star))
       ],
     ),
   );
@@ -57,8 +91,6 @@ class Layout extends StatelessWidget {
       textAlign: TextAlign.justify,
     ),
   );
-
-  Layout({super.key});
 
   Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(

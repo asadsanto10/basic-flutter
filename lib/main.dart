@@ -1,3 +1,4 @@
+import 'package:first_app/component/tehemes.dart';
 import 'package:first_app/pages/layput.dart';
 import 'package:first_app/pages/login_page.dart';
 import 'package:first_app/router/router.dart';
@@ -19,23 +20,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // home: const HomePage(),
       themeMode: ThemeMode.light,
-      theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
-          fontFamily: GoogleFonts.lato().fontFamily,
-          appBarTheme: const AppBarTheme(
-            color: Colors.white,
-            elevation: 0,
-            iconTheme: IconThemeData(color: Colors.black),
-          )),
+      theme: ThemeManager.lightTheme(context),
 
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      initialRoute: '/layout',
+      darkTheme: ThemeManager.darkTheme(context),
+      initialRoute: '/home',
       routes: {
         MainRoute.homeRoute: (contex) => const HomePage(),
         MainRoute.loginRoute: (contex) => const LoginPage(),
-        MainRoute.layoutRoute: (contex) => Layout(),
+        MainRoute.layoutRoute: (contex) => const Layout(),
       },
     );
   }
