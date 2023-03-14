@@ -14,13 +14,23 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.fromLTRB(15.0, 2, 15.0, 2),
       child: Card(
+        elevation: 2,
         child: ListTile(
+          onTap: () {
+            print('${products.name}');
+          },
           leading: Image.network(products.image),
           title: Text(products.name),
-          subtitle: Text(products.description),
-          trailing: Text('\$${products.price}'),
+          subtitle: Text(products.desc),
+          trailing: Text(
+            '\$${products.price}',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.indigo,
+            ),
+          ),
         ),
       ),
     );

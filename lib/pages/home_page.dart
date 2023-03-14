@@ -1,14 +1,43 @@
+import 'dart:convert';
+
 import 'package:first_app/models/products.dart';
 import 'package:first_app/widgets/drawer.dart';
 import 'package:first_app/widgets/product_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    // await Future.delayed(Duration(seconds: 18118));
+    final data = await rootBundle.loadString('assets/data/products.json');
+    final decodData = json.decode(data);
+    final productData = decodData['products'];
+
+    CatalogModal.products = List.from(productData)
+        .map<Products>((item) => Products.fromMap(item))
+        .toList();
+
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     int days = 30;
+    // make dummy product
+    final dummyProduct = List.generate(50, (index) => CatalogModal.products[0]);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -43,13 +72,21 @@ class HomePage extends StatelessWidget {
       //         ])),
       //   ),
       // ),
-      body: ListView.builder(
-          itemCount: CatalogModal.products.length,
-          itemBuilder: (context, index) {
-            return ProductWidget(
-              products: CatalogModal.products[index],
-            );
-          }),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child:
+            (CatalogModal.products != null && CatalogModal.products.isNotEmpty)
+                ? ListView.builder(
+                    itemCount: CatalogModal.products.length,
+                    itemBuilder: (context, index) {
+                      return ProductWidget(
+                        products: CatalogModal.products[index],
+                      );
+                    })
+                : Center(
+                    child: CircularProgressIndicator(),
+                  ),
+      ),
       drawer: const SideDrawer(),
     );
   }
