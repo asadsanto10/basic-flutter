@@ -92,5 +92,5 @@ class Products {
 }
 
 class CatalogModal {
-  static List<Products> products = [];
+  static var products;
 }

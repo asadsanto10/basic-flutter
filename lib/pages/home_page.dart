@@ -23,9 +23,10 @@ class _HomePageState extends State<HomePage> {
   loadData() async {
     // await Future.delayed(Duration(seconds: 18118));
     final data = await rootBundle.loadString('assets/data/products.json');
+
     final decodData = json.decode(data);
     final productData = decodData['products'];
-
+    print('Catalog modal $CatalogModal.products');
     CatalogModal.products = List.from(productData)
         .map<Products>((item) => Products.fromMap(item))
         .toList();
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     int days = 30;
     // make dummy product
-    final dummyProduct = List.generate(50, (index) => CatalogModal.products[0]);
+    // final dummyProduct = List.generate(50, (index) => CatalogModal.products[0]);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -74,18 +75,17 @@ class _HomePageState extends State<HomePage> {
       // ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child:
-            (CatalogModal.products != null && CatalogModal.products.isNotEmpty)
-                ? ListView.builder(
-                    itemCount: CatalogModal.products.length,
-                    itemBuilder: (context, index) {
-                      return ProductWidget(
-                        products: CatalogModal.products[index],
-                      );
-                    })
-                : Center(
-                    child: CircularProgressIndicator(),
-                  ),
+        child: (CatalogModal.products != null)
+            ? ListView.builder(
+                itemCount: CatalogModal.products.length,
+                itemBuilder: (context, index) {
+                  return ProductWidget(
+                    products: CatalogModal.products[index],
+                  );
+                })
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
       drawer: const SideDrawer(),
     );
